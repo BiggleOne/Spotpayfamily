@@ -4,180 +4,171 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Crew — Rejoins la team</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --yellow: #F5E642;
-            --black: #0D0D0D;
-            --dark: #141414;
-            --mid: #1E1E1E;
-            --grey: #777;
-            --white: #EFEFEF;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background: var(--black);
-            color: var(--white);
+        html, body {
+            background: #111;
+            color: #eee;
             font-family: 'DM Mono', monospace;
-            overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* LAYOUT PRINCIPAL — tout tient en une vue */
+        /* ─── PAGE ─── */
         .page {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 48px 40px;
-            display: grid;
-            grid-template-rows: auto auto auto;
-            gap: 40px;
-            min-height: 100vh;
-        }
-
-        /* ── TOP : titre + prix ── */
-        .top {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: end;
-            gap: 24px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 32px;
-        }
-
-        .tag {
-            font-size: 0.65rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--yellow);
-            margin-bottom: 14px;
+            padding: 40px 32px;
             display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* ─── HEADER ─── */
+        .header {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            border-left: 4px solid #F5E642;
+            padding: 28px 32px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-        }
-        .tag::before {
-            content: '';
-            display: block;
-            width: 20px; height: 1px;
-            background: var(--yellow);
+            gap: 24px;
         }
 
-        .hero-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 900;
-            font-size: clamp(4rem, 10vw, 8.5rem);
-            line-height: 0.88;
+        .header-left .tag {
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: -0.02em;
-            color: var(--yellow);
+            color: #F5E642;
+            margin-bottom: 10px;
         }
 
-        .hero-title .outline {
-            -webkit-text-stroke: 2px var(--yellow);
-            color: transparent;
-        }
-
-        .price-block {
-            text-align: right;
-        }
-
-        .price-amount {
+        .header-left h1 {
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 900;
-            font-size: 3.5rem;
-            color: var(--yellow);
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            color: #F5E642;
+        }
+
+        .header-left h1 span {
+            color: #111;
+            -webkit-text-stroke: 2px #F5E642;
+        }
+
+        .header-left p {
+            margin-top: 12px;
+            font-size: 0.72rem;
+            color: #888;
+            line-height: 1.8;
+        }
+
+        .price-box {
+            background: #F5E642;
+            color: #111;
+            padding: 20px 28px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .price-box .amount {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 3rem;
             line-height: 1;
         }
 
-        .price-label {
-            font-size: 0.62rem;
-            color: var(--grey);
-            letter-spacing: 0.12em;
+        .price-box .label {
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-top: 4px;
+            color: #333;
         }
 
-        /* ── MIDDLE : features + paiement côte à côte ── */
-        .middle {
+        /* ─── BODY ─── */
+        .body {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 16px;
         }
 
-        /* Features */
-        .features-block {}
+        /* ─── FEATURES ─── */
+        .features {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+        }
 
-        .block-label {
+        .block-title {
+            padding: 14px 20px;
             font-size: 0.6rem;
-            letter-spacing: 0.22em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--grey);
-            margin-bottom: 16px;
+            color: #F5E642;
+            border-bottom: 1px solid #2e2e2e;
+            background: #161616;
         }
 
-        .features-list {
+        .feat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: #1f1f1f;
         }
 
         .feat {
-            background: var(--dark);
-            padding: 20px 18px;
+            padding: 18px 20px;
+            border-bottom: 1px solid #222;
+            border-right: 1px solid #222;
             transition: background 0.2s;
-            position: relative;
         }
-        .feat:hover { background: #181818; }
-        .feat::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 1px;
-            background: var(--yellow);
-            transition: width 0.35s ease;
-        }
-        .feat:hover::after { width: 100%; }
 
-        .feat-icon { font-size: 1.2rem; margin-bottom: 8px; }
+        .feat:nth-child(even) { border-right: none; }
+        .feat:nth-last-child(-n+2) { border-bottom: none; }
+        .feat:hover { background: #202020; }
 
-        .feat-title {
+        .feat-icon { font-size: 1.3rem; margin-bottom: 6px; }
+
+        .feat-name {
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            color: var(--white);
+            color: #fff;
             margin-bottom: 4px;
         }
 
-        .feat-text {
-            font-size: 0.68rem;
-            color: var(--grey);
-            line-height: 1.75;
+        .feat-desc {
+            font-size: 0.63rem;
+            color: #666;
+            line-height: 1.7;
         }
 
-        /* Payment */
-        .payment-block {}
-
-        .pay-cards {
+        /* ─── PAIEMENT ─── */
+        .payment {
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+        }
+
+        .pay-list {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .pay-card {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 20px 24px;
-            background: var(--dark);
-            border: 1px solid #222;
+            gap: 16px;
+            padding: 18px 20px;
             text-decoration: none;
-            color: var(--white);
-            transition: all 0.3s ease;
+            color: #eee;
+            border-bottom: 1px solid #222;
+            transition: background 0.2s;
             position: relative;
             overflow: hidden;
         }
@@ -185,24 +176,20 @@
         .pay-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: var(--yellow);
-            transform: translateX(-100%);
-            transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+            left: 0; top: 0; bottom: 0;
+            width: 0;
+            background: #F5E642;
+            transition: width 0.3s ease;
         }
 
-        .pay-card:hover::before { transform: translateX(0); }
-        .pay-card:hover .pay-icon,
-        .pay-card:hover .pay-name,
-        .pay-card:hover .pay-sub,
-        .pay-card:hover .pay-arrow { color: var(--black); }
+        .pay-card:hover::before { width: 4px; }
+        .pay-card:hover { background: #202020; }
 
         .pay-icon {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
             position: relative;
             z-index: 1;
-            transition: color 0.3s;
-            flex-shrink: 0;
         }
 
         .pay-info {
@@ -214,65 +201,98 @@
         .pay-name {
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: 0.08em;
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            transition: color 0.3s;
+            color: #fff;
         }
 
         .pay-sub {
-            font-size: 0.62rem;
-            color: var(--grey);
-            letter-spacing: 0.08em;
+            font-size: 0.6rem;
+            color: #666;
             margin-top: 2px;
-            transition: color 0.3s;
+            letter-spacing: 0.06em;
         }
 
         .pay-arrow {
-            font-size: 1.1rem;
-            color: var(--grey);
+            font-size: 0.9rem;
+            color: #444;
             position: relative;
             z-index: 1;
-            transition: color 0.3s, transform 0.3s;
+            transition: color 0.2s, transform 0.2s;
         }
 
         .pay-card:hover .pay-arrow {
+            color: #F5E642;
             transform: translate(3px, -3px);
         }
 
-        /* BOUTON GAG */
+        /* Bouton gag */
         .gag-btn {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 20px 24px;
+            gap: 16px;
+            padding: 18px 20px;
             background: transparent;
-            border: 1px dashed #333;
+            border: none;
+            border-top: 1px dashed #2a2a2a;
             color: #444;
             cursor: pointer;
             width: 100%;
             text-align: left;
-            transition: all 0.3s ease;
             font-family: 'DM Mono', monospace;
+            transition: background 0.2s;
+            margin-top: auto;
         }
-        .gag-btn:hover { border-color: #555; color: #666; }
-        .gag-icon { font-size: 1.6rem; flex-shrink: 0; }
-        .gag-info { flex: 1; }
-        .gag-name {
+
+        .gag-btn:hover { background: #1e1e1e; color: #555; }
+
+        .gag-btn-name {
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: 0.08em;
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
         }
-        .gag-sub { font-size: 0.62rem; letter-spacing: 0.08em; margin-top: 2px; }
 
-        /* POPUP */
+        .gag-btn-sub {
+            font-size: 0.6rem;
+            margin-top: 2px;
+            letter-spacing: 0.06em;
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            background: #161616;
+            border: 1px solid #2e2e2e;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer p {
+            font-size: 0.58rem;
+            color: #444;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 5px; height: 5px;
+            background: #F5E642;
+            border-radius: 50%;
+            margin: 0 8px;
+            vertical-align: middle;
+        }
+
+        /* ─── POPUP ─── */
         .popup-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.88);
+            background: rgba(0,0,0,0.9);
             z-index: 2000;
             align-items: center;
             justify-content: center;
@@ -280,44 +300,45 @@
         .popup-overlay.active { display: flex; }
 
         .popup-box {
-            background: var(--dark);
-            border: 1px solid var(--yellow);
-            padding: 48px 40px;
-            max-width: 460px;
+            background: #1a1a1a;
+            border: 1px solid #F5E642;
+            border-top: 4px solid #F5E642;
+            padding: 40px 36px;
+            max-width: 420px;
             width: 90%;
             text-align: center;
-            animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+
         @keyframes popIn {
-            from { opacity: 0; transform: scale(0.75); }
+            from { opacity: 0; transform: scale(0.8); }
             to   { opacity: 1; transform: scale(1); }
         }
 
-        .popup-emoji { font-size: 3.5rem; display: block; margin-bottom: 20px; }
+        .popup-emoji { font-size: 3rem; margin-bottom: 16px; display: block; }
 
         .popup-title {
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 900;
-            font-size: 2rem;
+            font-size: 1.8rem;
             text-transform: uppercase;
-            color: var(--yellow);
+            color: #F5E642;
             letter-spacing: 0.05em;
             margin-bottom: 16px;
         }
 
         .popup-text {
-            font-size: 0.78rem;
-            color: var(--grey);
+            font-size: 0.74rem;
+            color: #888;
             line-height: 2;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
-        .popup-text strong { color: var(--white); }
+        .popup-text strong { color: #eee; }
 
         .popup-close {
-            display: inline-block;
-            padding: 14px 36px;
-            background: var(--yellow);
-            color: var(--black);
+            padding: 12px 32px;
+            background: #F5E642;
+            color: #111;
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
             font-size: 1rem;
@@ -329,127 +350,75 @@
         }
         .popup-close:hover { opacity: 0.85; }
 
-        /* ── BOTTOM : footer ── */
-        .bottom {
-            border-top: 1px solid #1e1e1e;
-            padding-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .bottom p {
-            font-size: 0.6rem;
-            color: #333;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .dot {
-            display: inline-block;
-            width: 5px; height: 5px;
-            background: var(--yellow);
-            border-radius: 50%;
-            margin: 0 8px;
-            vertical-align: middle;
-        }
-
-        /* Grain overlay */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 999;
-        }
-
-        /* Animations d'entrée */
-        .top { animation: fadeUp 0.6s ease both; }
-        .middle { animation: fadeUp 0.6s ease 0.15s both; }
-        .bottom { animation: fadeUp 0.6s ease 0.25s both; }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .page { padding: 32px 20px; gap: 28px; }
-            .top { grid-template-columns: 1fr; }
-            .price-block { text-align: left; }
-            .middle { grid-template-columns: 1fr; }
-            .hero-title { font-size: clamp(3.5rem, 16vw, 5rem); }
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 680px) {
+            .page { padding: 20px 16px; gap: 16px; }
+            .header { flex-direction: column; align-items: flex-start; }
+            .price-box { width: 100%; }
+            .body { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 <div class="page">
 
-    <!-- TOP -->
-    <div class="top">
-        <div>
-            <div class="tag">Spotify Premium Partagé</div>
-            <h1 class="hero-title">
-                SPOTIFY<br>
-                <span class="outline">CREW</span>
-            </h1>
-            <p style="font-size:0.72rem; color:var(--grey); margin-top:14px; line-height:1.9; max-width:420px;">
-                Un compte premium partagé entre gens de goût.<br>
-                Zéro pub. Haute qualité. Prix ridicule.
-            </p>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-left">
+            <div class="tag">✦ Spotify Premium Partagé</div>
+            <h1>SPOTIFY <span>CREW</span></h1>
+            <p>Un compte premium partagé. Zéro pub.<br>Haute qualité. Prix ridicule.</p>
         </div>
-        <div class="price-block">
-            <div class="price-amount">41,98€</div>
-            <div class="price-label">par année<br>c'est deal</div>
+        <div class="price-box">
+            <div class="amount">41,98€</div>
+            <div class="label">par année</div>
         </div>
     </div>
 
-    <!-- MIDDLE -->
-    <div class="middle">
+    <!-- BODY -->
+    <div class="body">
 
         <!-- Features -->
-        <div class="features-block">
-            <div class="block-label">Ce que tu obtiens</div>
-            <div class="features-list">
+        <div class="features">
+            <div class="block-title">✦ Ce que tu obtiens</div>
+            <div class="feat-grid">
                 <div class="feat">
                     <div class="feat-icon">🎧</div>
-                    <div class="feat-title">Qualité Max</div>
-                    <div class="feat-text">Son haute qualité, zéro compression.</div>
+                    <div class="feat-name">Qualité Max</div>
+                    <div class="feat-desc">Son haute qualité, zéro compression.</div>
                 </div>
                 <div class="feat">
                     <div class="feat-icon">🚫</div>
-                    <div class="feat-title">Zéro Pub</div>
-                    <div class="feat-text">Plus jamais de pub qui coupe le vibe.</div>
+                    <div class="feat-name">Zéro Pub</div>
+                    <div class="feat-desc">Fini les pubs qui cassent le vibe.</div>
                 </div>
                 <div class="feat">
                     <div class="feat-icon">🎵</div>
-                    <div class="feat-title">200M Titres</div>
-                    <div class="feat-text">De Biggie à Billie, tout y est.</div>
+                    <div class="feat-name">200M Titres</div>
+                    <div class="feat-desc">De Biggie à Billie, tout y est.</div>
                 </div>
                 <div class="feat">
                     <div class="feat-icon">📥</div>
-                    <div class="feat-title">Offline</div>
-                    <div class="feat-text">Télécharge et écoute sans internet.</div>
+                    <div class="feat-name">Offline</div>
+                    <div class="feat-desc">Écoute sans connexion internet.</div>
                 </div>
                 <div class="feat">
                     <div class="feat-icon">📱</div>
-                    <div class="feat-title">Partout</div>
-                    <div class="feat-text">Tous tes appareils, une seule app.</div>
+                    <div class="feat-name">Partout</div>
+                    <div class="feat-desc">Tous tes appareils, une seule app.</div>
                 </div>
                 <div class="feat">
                     <div class="feat-icon">✅</div>
-                    <div class="feat-title">Légal</div>
-                    <div class="feat-text">Partage officiel, aucun risque.</div>
+                    <div class="feat-name">Légal</div>
+                    <div class="feat-desc">Partage officiel, aucun risque.</div>
                 </div>
             </div>
         </div>
 
         <!-- Paiement -->
-        <div class="payment-block">
-            <div class="block-label">Comment je paie ?</div>
-            <div class="pay-cards">
+        <div class="payment">
+            <div class="block-title">✦ Comment je paie ?</div>
+            <div class="pay-list">
                 <a href="https://pay.bancontact.com/p2p/ebf332cc-7b8d-48ae-80f5-94a48fc56a24" class="pay-card" target="_blank">
                     <div class="pay-icon">🏦</div>
                     <div class="pay-info">
@@ -474,39 +443,37 @@
                     </div>
                     <div class="pay-arrow">↗</div>
                 </a>
-
                 <button class="gag-btn" onclick="document.getElementById('popup').classList.add('active')">
-                    <div class="gag-icon">🤔</div>
-                    <div class="gag-info">
-                        <div class="gag-name">Autres options</div>
-                        <div class="gag-sub">Étalement / payer plus tard / ne pas payer</div>
+                    <div class="pay-icon">🤔</div>
+                    <div class="pay-info">
+                        <div class="gag-btn-name">Autres options</div>
+                        <div class="gag-btn-sub">Étalement / plus tard / ne pas payer</div>
                     </div>
-                    <div style="font-size:1.1rem; color:#333;">→</div>
+                    <div class="pay-arrow">→</div>
                 </button>
             </div>
         </div>
 
     </div>
 
-    <!-- BOTTOM -->
-    <div class="bottom">
+    <!-- FOOTER -->
+    <div class="footer">
         <p>Spotify Crew HQ <span class="dot"></span> 2025</p>
         <p>Made with 🔥 yellow vibes</p>
     </div>
 
 </div>
+
 <!-- POPUP GAG -->
 <div class="popup-overlay" id="popup" onclick="if(event.target===this) this.classList.remove('active')">
     <div class="popup-box">
         <span class="popup-emoji">😤</span>
         <div class="popup-title">Ça va pas la tête ?!</div>
         <p class="popup-text">
-            T'as cliqué sur <strong>"ne pas payer"</strong> ? 
-            Sérieusement ?<br><br>
-            C'est <strong>41,98€ pour une ANNÉE entière</strong>.<br>
+            T'as cliqué sur <strong>"ne pas payer"</strong> ? Sérieusement ?<br><br>
+            C'est <strong>41,98€ pour une ANNÉE</strong>.<br>
             Moins cher qu'un kebab par mois.<br><br>
-            Tu continues à tergiverser et je <strong>coupe ton compte</strong> 
-            avant même que t'aies fini de lire cette phrase. 😇
+            Continue à faire le malin et je <strong>coupe ton compte</strong> direct. 😇
         </p>
         <button class="popup-close" onclick="document.getElementById('popup').classList.remove('active')">
             OK OK je paie 💸
