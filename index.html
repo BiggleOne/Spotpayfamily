@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Crew — Rejoins la team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #F5E642;
+            --black: #0D0D0D;
+            --dark: #141414;
+            --mid: #1E1E1E;
+            --grey: #777;
+            --white: #EFEFEF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'DM Mono', monospace;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* LAYOUT PRINCIPAL — tout tient en une vue */
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 48px 40px;
+            display: grid;
+            grid-template-rows: auto auto auto;
+            gap: 40px;
+            min-height: 100vh;
+        }
+
+        /* ── TOP : titre + prix ── */
+        .top {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: end;
+            gap: 24px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 32px;
+        }
+
+        .tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--yellow);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tag::before {
+            content: '';
+            display: block;
+            width: 20px; height: 1px;
+            background: var(--yellow);
+        }
+
+        .hero-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: clamp(4rem, 10vw, 8.5rem);
+            line-height: 0.88;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--yellow);
+        }
+
+        .hero-title .outline {
+            -webkit-text-stroke: 2px var(--yellow);
+            color: transparent;
+        }
+
+        .price-block {
+            text-align: right;
+        }
+
+        .price-amount {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 3.5rem;
+            color: var(--yellow);
+            line-height: 1;
+        }
+
+        .price-label {
+            font-size: 0.62rem;
+            color: var(--grey);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* ── MIDDLE : features + paiement côte à côte ── */
+        .middle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* Features */
+        .features-block {}
+
+        .block-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--grey);
+            margin-bottom: 16px;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: #1f1f1f;
+        }
+
+        .feat {
+            background: var(--dark);
+            padding: 20px 18px;
+            transition: background 0.2s;
+            position: relative;
+        }
+        .feat:hover { background: #181818; }
+        .feat::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: var(--yellow);
+            transition: width 0.35s ease;
+        }
+        .feat:hover::after { width: 100%; }
+
+        .feat-icon { font-size: 1.2rem; margin-bottom: 8px; }
+
+        .feat-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .feat-text {
+            font-size: 0.68rem;
+            color: var(--grey);
+            line-height: 1.75;
+        }
+
+        /* Payment */
+        .payment-block {}
+
+        .pay-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pay-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 24px;
+            background: var(--dark);
+            border: 1px solid #222;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pay-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--yellow);
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+
+        .pay-card:hover::before { transform: translateX(0); }
+        .pay-card:hover .pay-icon,
+        .pay-card:hover .pay-name,
+        .pay-card:hover .pay-sub,
+        .pay-card:hover .pay-arrow { color: var(--black); }
+
+        .pay-icon {
+            font-size: 1.6rem;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .pay-info {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pay-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .pay-sub {
+            font-size: 0.62rem;
+            color: var(--grey);
+            letter-spacing: 0.08em;
+            margin-top: 2px;
+            transition: color 0.3s;
+        }
+
+        .pay-arrow {
+            font-size: 1.1rem;
+            color: var(--grey);
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .pay-card:hover .pay-arrow {
+            transform: translate(3px, -3px);
+        }
+
+        /* BOUTON GAG */
+        .gag-btn {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 24px;
+            background: transparent;
+            border: 1px dashed #333;
+            color: #444;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            transition: all 0.3s ease;
+            font-family: 'DM Mono', monospace;
+        }
+        .gag-btn:hover { border-color: #555; color: #666; }
+        .gag-icon { font-size: 1.6rem; flex-shrink: 0; }
+        .gag-info { flex: 1; }
+        .gag-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .gag-sub { font-size: 0.62rem; letter-spacing: 0.08em; margin-top: 2px; }
+
+        /* POPUP */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.88);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .popup-overlay.active { display: flex; }
+
+        .popup-box {
+            background: var(--dark);
+            border: 1px solid var(--yellow);
+            padding: 48px 40px;
+            max-width: 460px;
+            width: 90%;
+            text-align: center;
+            animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.75); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .popup-emoji { font-size: 3.5rem; display: block; margin-bottom: 20px; }
+
+        .popup-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            text-transform: uppercase;
+            color: var(--yellow);
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .popup-text {
+            font-size: 0.78rem;
+            color: var(--grey);
+            line-height: 2;
+            margin-bottom: 32px;
+        }
+        .popup-text strong { color: var(--white); }
+
+        .popup-close {
+            display: inline-block;
+            padding: 14px 36px;
+            background: var(--yellow);
+            color: var(--black);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .popup-close:hover { opacity: 0.85; }
+
+        /* ── BOTTOM : footer ── */
+        .bottom {
+            border-top: 1px solid #1e1e1e;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bottom p {
+            font-size: 0.6rem;
+            color: #333;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 5px; height: 5px;
+            background: var(--yellow);
+            border-radius: 50%;
+            margin: 0 8px;
+            vertical-align: middle;
+        }
+
+        /* Grain overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Animations d'entrée */
+        .top { animation: fadeUp 0.6s ease both; }
+        .middle { animation: fadeUp 0.6s ease 0.15s both; }
+        .bottom { animation: fadeUp 0.6s ease 0.25s both; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page { padding: 32px 20px; gap: 28px; }
+            .top { grid-template-columns: 1fr; }
+            .price-block { text-align: left; }
+            .middle { grid-template-columns: 1fr; }
+            .hero-title { font-size: clamp(3.5rem, 16vw, 5rem); }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- TOP -->
+    <div class="top">
+        <div>
+            <div class="tag">Spotify Premium Partagé</div>
+            <h1 class="hero-title">
+                SPOTIFY<br>
+                <span class="outline">CREW</span>
+            </h1>
+            <p style="font-size:0.72rem; color:var(--grey); margin-top:14px; line-height:1.9; max-width:420px;">
+                Un compte premium partagé entre gens de goût.<br>
+                Zéro pub. Haute qualité. Prix ridicule.
+            </p>
+        </div>
+        <div class="price-block">
+            <div class="price-amount">41,98€</div>
+            <div class="price-label">par année<br>c'est deal</div>
+        </div>
+    </div>
+
+    <!-- MIDDLE -->
+    <div class="middle">
+
+        <!-- Features -->
+        <div class="features-block">
+            <div class="block-label">Ce que tu obtiens</div>
+            <div class="features-list">
+                <div class="feat">
+                    <div class="feat-icon">🎧</div>
+                    <div class="feat-title">Qualité Max</div>
+                    <div class="feat-text">Son haute qualité, zéro compression.</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">🚫</div>
+                    <div class="feat-title">Zéro Pub</div>
+                    <div class="feat-text">Plus jamais de pub qui coupe le vibe.</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">🎵</div>
+                    <div class="feat-title">200M Titres</div>
+                    <div class="feat-text">De Biggie à Billie, tout y est.</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">📥</div>
+                    <div class="feat-title">Offline</div>
+                    <div class="feat-text">Télécharge et écoute sans internet.</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">📱</div>
+                    <div class="feat-title">Partout</div>
+                    <div class="feat-text">Tous tes appareils, une seule app.</div>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon">✅</div>
+                    <div class="feat-title">Légal</div>
+                    <div class="feat-text">Partage officiel, aucun risque.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paiement -->
+        <div class="payment-block">
+            <div class="block-label">Comment je paie ?</div>
+            <div class="pay-cards">
+                <a href="https://pay.bancontact.com/p2p/ebf332cc-7b8d-48ae-80f5-94a48fc56a24" class="pay-card" target="_blank">
+                    <div class="pay-icon">🏦</div>
+                    <div class="pay-info">
+                        <div class="pay-name">Bancontact</div>
+                        <div class="pay-sub">Virement instantané</div>
+                    </div>
+                    <div class="pay-arrow">↗</div>
+                </a>
+                <a href="https://paypal.me/benissabilal" class="pay-card" target="_blank">
+                    <div class="pay-icon">💳</div>
+                    <div class="pay-info">
+                        <div class="pay-name">PayPal</div>
+                        <div class="pay-sub">@benissabilal</div>
+                    </div>
+                    <div class="pay-arrow">↗</div>
+                </a>
+                <a href="https://revolut.me/biggleone" class="pay-card" target="_blank">
+                    <div class="pay-icon">🚀</div>
+                    <div class="pay-info">
+                        <div class="pay-name">Revolut</div>
+                        <div class="pay-sub">revolut.me/biggleone</div>
+                    </div>
+                    <div class="pay-arrow">↗</div>
+                </a>
+
+                <button class="gag-btn" onclick="document.getElementById('popup').classList.add('active')">
+                    <div class="gag-icon">🤔</div>
+                    <div class="gag-info">
+                        <div class="gag-name">Autres options</div>
+                        <div class="gag-sub">Étalement / payer plus tard / ne pas payer</div>
+                    </div>
+                    <div style="font-size:1.1rem; color:#333;">→</div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="bottom">
+        <p>Spotify Crew HQ <span class="dot"></span> 2025</p>
+        <p>Made with 🔥 yellow vibes</p>
+    </div>
+
+</div>
+<!-- POPUP GAG -->
+<div class="popup-overlay" id="popup" onclick="if(event.target===this) this.classList.remove('active')">
+    <div class="popup-box">
+        <span class="popup-emoji">😤</span>
+        <div class="popup-title">Ça va pas la tête ?!</div>
+        <p class="popup-text">
+            T'as cliqué sur <strong>"ne pas payer"</strong> ? 
+            Sérieusement ?<br><br>
+            C'est <strong>41,98€ pour une ANNÉE entière</strong>.<br>
+            Moins cher qu'un kebab par mois.<br><br>
+            Tu continues à tergiverser et je <strong>coupe ton compte</strong> 
+            avant même que t'aies fini de lire cette phrase. 😇
+        </p>
+        <button class="popup-close" onclick="document.getElementById('popup').classList.remove('active')">
+            OK OK je paie 💸
+        </button>
+    </div>
+</div>
+
+</body>
+</html>
